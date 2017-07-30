@@ -30,10 +30,18 @@ elseif ($do == "individual-calc") {
 }
 elseif ($do == "food-input") {
 	$stage = isset($_GET['stage']) ? $_GET['stage'] : 'start';
+	$group_id = isset($_GET['group_id']) ? $_GET['group_id'] : '';
+	$food_id = isset($_GET['food_id']) ? $_GET['food_id'] : '';
 	$MI = new FoodInput($model);
 	switch ($stage) {
 		case 'start':
 			echo json_encode($MI->start());
+			break;
+		case 'food-items':
+			echo json_encode($MI->food_items($group_id));
+			break;
+		case 'that-food':
+			echo json_encode($MI->that_food($group_id, $food_id));
 			break;
 	}
 }

@@ -43,6 +43,10 @@
 <div id="wrapper">
     <img src="images/bgn<?=rand(1,5)?>.jpg" />
 </div>
+<div id="loader">
+    <div id="overlay"></div>
+    <img src="images/loader.gif" />
+</div>
 <script src="js/jquery-3.1.0.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/select2.min.js"></script>

@@ -10,6 +10,7 @@ class Controller {
 }
 
 class FoodInput extends Controller {
+
     public function start() {
 	    $foodGroups = $this->model->getFoodGroups();
 	    ob_start();
@@ -18,6 +19,30 @@ class FoodInput extends Controller {
 
 	    return array('html' => $return);
     }
+
+	public function food_items($group_id) {
+		$foodGroups = $this->model->getFoodGroups();
+		$foodItems = $this->model->getFoodItems($group_id);
+
+		ob_start();
+		require_once("views/food_input_view.php");
+		$return = ob_get_clean();
+
+		return array('html' => $return);
+	}
+
+	public function that_food($group_id, $food_id) {
+		$foodGroups = $this->model->getFoodGroups();
+		$foodItems = $this->model->getFoodItems($group_id);
+		$thatFood = $this->model->getThatFood($food_id);
+
+		ob_start();
+		require_once("views/food_input_view.php");
+		$return = ob_get_clean();
+
+		return array('html' => $return);
+	}
+
 }
 
 class Unos extends Controller {

@@ -1,16 +1,41 @@
+/************   General   ************/
+
 html, body, #wrapper {
-  height: 100%;
+  height: calc(100% - 78px);
   width: 100%;
   margin: 0;
   padding: 0;
 }
-
 body {
   font-family: arial, sans-serif;
 }
+#loader {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
 
-/************   General   ************/
+  &.loading {
+    position: absolute;
+    z-index: 12000;
+    display: block;
 
+    #overlay {
+      background-color: #fff;
+      opacity: 0.5;
+      width: 100%;
+      height: 100%;
+    }
+    img {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: calc(50vh - 100px);
+      left: calc(50vw - 100px);
+    }
+  }
+}
 #wrapper {
   padding: 10px;
   img {
@@ -48,9 +73,24 @@ body {
 
 /************   Food-input   ************/
 
-#food-groups {
-  min-width: 250px;
+.food-select {
+  min-width: 300px;
+  max-width: 100%;
 }
+.food-select-row {
+  margin-bottom: 20px;
+}
+.food-items-row {
+  display: none;
+}
+#food-details {
+  display: none;
+
+  input {
+    min-width: 300px;
+  }
+}
+
 
 #input-container {
   margin: 10px;

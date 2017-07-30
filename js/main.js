@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
 	$(document).on('click','.menu-item', function () {
-		$('.navbar-nav li').removeClass('active');
+        if ($('#myNavbar').hasClass('in')) $('.navbar-toggle').click();
+	    $('.navbar-nav li').removeClass('active');
 		$(this).addClass('active');
 		$.get("index.php",{do: $(this).data('page')}, function (data) {
 			$('#wrapper').html(data.html);
@@ -9,7 +10,43 @@ $(document).ready(function() {
 		}, 'json');
 	});
 
-	$(document).on('click','#task-btn', function () {
+// Food input
+
+    $(document).on('change','#food-groups', function () {
+        if ($(this).val() != "") {
+            $('#loader').addClass('loading');
+            $.get("index.php", {do: 'food-input', stage: 'food-items', group_id: $(this).val()}, function (data) {
+                $('#wrapper').html(data.html);
+                $('.food-items-row').show();
+                $('select').select2();
+                $('#loader').removeClass('loading');
+            }, 'json');
+        } else {
+            $('#food-items').html();
+            $('#food-details input').val('');
+            $('.food-items-row').hide();
+            $('#food-details').hide();
+        }
+    });
+
+    $(document).on('change','#food-items', function () {
+        if ($(this).val() != "") {
+            var group_id = $('#food-groups').val();
+            $('#loader').addClass('loading');
+            $.get("index.php", {do: 'food-input', stage: 'that-food', food_id: $(this).val(), group_id: group_id}, function (data) {
+                $('#wrapper').html(data.html);
+                $('.food-items-row').show();
+                $('#food-details').show();
+                $('select').select2();
+                $('#loader').removeClass('loading');
+            }, 'json');
+        } else {
+            $('#food-details input').val('');
+            $('#food-details').hide();
+        }
+    });
+
+    $(document).on('click','#task-btn', function () {
         var task = $('#task').val();
         $.get("index.php",{do: "unos", task: task}, function (data) {
             if (data.callback == 'ok') {
