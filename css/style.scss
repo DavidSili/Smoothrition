@@ -2,18 +2,24 @@ html, body, #wrapper {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 body {
-  font-family: arial, sans-serif; }
+  font-family: arial, sans-serif;
+}
 
 /************   General   ************/
+
 #wrapper {
-  padding: 10px; }
-  #wrapper img {
-    width: 100%; }
+  padding: 10px;
+  img {
+    width: 100%;
+  }
+}
 
 /************   Login   ************/
+
 #login-wrapper {
   position: absolute;
   left: 0;
@@ -27,47 +33,58 @@ body {
   border: 2px solid #555;
   border-radius: 20px;
   background: #eee;
-  text-align: center; }
+  text-align: center;
+}
 
 #login-name, #login-password {
   width: calc( 100% - 10px );
   padding: 5px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+}
 
 #login-btn {
-  padding: 5px 20px; }
+  padding: 5px 20px;
+}
 
 /************   Food-input   ************/
+
 #food-groups {
-  min-width: 250px; }
+  min-width: 250px;
+}
 
 #input-container {
   margin: 10px;
   padding: 10px;
-  border: 3px ridge #555; }
+  border: 3px ridge #555;
+}
 
 #tasks-container {
   margin: 10px;
   padding: 10px;
-  border: 3px ridge #555; }
+  border: 3px ridge #555;
+}
 
 .row {
   height: 20px;
   padding: 5px;
-  width: calc( 100% - 10px ); }
-  .row:nth-child(even) {
-    background-color: #def; }
-  .row input {
+  width: calc( 100% - 10px );
+  &:nth-child(even) {
+    background-color: #def;
+  }
+  input {
     width: 20px;
-    float: left; }
-  .row div {
-    float: left; }
+    float: left;
+  }
+  div {
+    float: left;
+  }
+}
 
 .done {
   color: #777;
-  text-decoration: line-through; }
+  text-decoration: line-through;
+}
 
 #logout {
-  float: right; }
-
-/*# sourceMappingURL=style.css.map */
+  float: right;
+}

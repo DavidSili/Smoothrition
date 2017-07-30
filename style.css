@@ -1,0 +1,80 @@
+html, body, #wrapper {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: arial, sans-serif;
+}
+
+/************   General   ************/
+#wrapper {
+    padding: 10px;
+}
+#wrapper img {
+    width: 100%;
+}
+
+/************   Login   ************/
+#login-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    height: 100px;
+    margin: 200px auto;
+    padding: 20px;
+    border: 2px solid #555;
+    border-radius: 20px;
+    background: #eee;
+    text-align: center;
+}
+#login-name, #login-password {
+    width: calc( 100% - 10px );
+    padding: 5px;
+	margin-bottom: 10px;
+}
+#login-btn {
+    padding: 5px 20px;
+}
+
+/************   Food-input   ************/
+#food-groups {
+    min-width: 250px;
+}
+
+
+#input-container, #tasks-container {
+    margin: 10px;
+    padding: 10px;
+    border: 3px ridge #555;
+}
+#tasks-container {
+    padding: 0;
+}
+.row {
+    height: 20px;
+    padding: 5px;
+    width: calc( 100% - 10px );
+}
+.row:nth-child(even) {
+    background-color: #def;
+}
+.row input {
+    width: 20px;
+    float: left;
+}
+.row div {
+    float: left;
+}
+.done {
+    color: #777;
+    text-decoration: line-through;
+}
+
+#logout {
+    float:right;
+}
