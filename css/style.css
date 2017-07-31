@@ -73,7 +73,13 @@ body {
 #food-details {
   display: none; }
   #food-details input {
-    min-width: 300px; }
+    width: 300px; }
+    #food-details input:read-only {
+      background-color: #ccc; }
+  #food-details label {
+    margin-bottom: 1px; }
+  #food-details .input-row {
+    margin-bottom: 10px; }
 
 #input-container {
   margin: 10px;

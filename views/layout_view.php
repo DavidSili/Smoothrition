@@ -9,6 +9,7 @@
           href="images/favicon.png">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
@@ -50,6 +51,7 @@
 <script src="js/jquery-3.1.0.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/select2.min.js"></script>
+<script src="js/toastr.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

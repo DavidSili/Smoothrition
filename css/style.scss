@@ -80,14 +80,26 @@ body {
 .food-select-row {
   margin-bottom: 20px;
 }
+
 .food-items-row {
   display: none;
 }
+
 #food-details {
   display: none;
 
   input {
-    min-width: 300px;
+    width: 300px;
+
+    &:read-only {
+      background-color: #ccc;
+    }
+  }
+  label {
+    margin-bottom: 1px;
+  }
+  .input-row {
+    margin-bottom: 10px;
   }
 }
 

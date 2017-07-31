@@ -43,6 +43,15 @@ elseif ($do == "food-input") {
 		case 'that-food':
 			echo json_encode($MI->that_food($group_id, $food_id));
 			break;
+		case 'save-food':
+			$name_sr = isset($_POST['name_sr']) ? $_POST['name_sr'] : '';
+			$name_en = isset($_POST['name_en']) ? $_POST['name_en'] : '';
+			$price = isset($_POST['price']) ? $_POST['price'] : '';
+			$refuse = isset($_POST['refuse']) ? $_POST['refuse'] : '';
+			$unit = isset($_POST['unit']) ? $_POST['unit'] : '';
+			$data = isset($_POST['data']) ? $_POST['data'] : '';
+			echo json_encode($MI->save_food($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data));
+			break;
 	}
 }
 elseif ($do == "dri-input") {

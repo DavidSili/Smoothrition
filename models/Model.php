@@ -78,6 +78,22 @@ class Model {
 	}
 
 	public function getThatFood ($food_id) {
+		$sql = "SELECT * FROM food WHERE id = :id";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(":id" => $food_id));
+		$return = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($return) {
+			return array(
+				'fid' 	  => $return['id'],
+				'name_sr' => $return['name_sr'],
+				'name_en' => $return['name_en'],
+				'price' => $return['price'],
+				'unit' => $return['unit'],
+				'refuse' => $return['refuse'],
+				'data' => $return['data'],
+			);
+		}
+
 		$url = 'https://api.nal.usda.gov/ndb/reports/';
 		$api_key = 'PvxMosJ3c46MpwRP9aQ0jn4Z8QO8lIFnHgr6tDDb';
 		$options = array(
@@ -111,10 +127,20 @@ class Model {
 		return array(
 			'fid' 	  => $thatFood->report->food->ndbno,
 			'name_en' => $thatFood->report->food->name,
-			'refuse'  => $thatFood->report->food->r,
+			'refuse'  => substr($thatFood->report->food->r,0,-1),
 			'unit' 	  => $thatFood->report->food->ru,
 			'data' 	  => json_encode($data),
 		);
+	}
+
+	public function getExistingFoodIds() {
+		$sql = 'SELECT id FROM food ORDER BY id ASC';
+		$stmt = $this->db->query($sql);
+		$ids = array();
+		while($row = $stmt->fetch()) {
+			$ids[] = $row['id'];
+		}
+		return $ids;
 	}
 
 	public function autoAddNutrients ($nutrients) {
@@ -156,6 +182,30 @@ class Model {
 		}
 
 	}
+
+	public function save_food($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data) {
+		if (empty($food_id) || empty($name_sr) || empty($name_en) || empty($unit) || empty($data)) {
+			return 'error';
+		}
+		if (in_array($food_id, $this->getExistingFoodIds())) {
+			$sql = 'UPDATE food SET `name_sr` = :name_sr, `name_en` = :name_en, `price` = :price, `unit` = :unit, `refuse` = :refuse, `data` = :data WHERE `id` = :id';
+		} else {
+			$sql = 'INSERT INTO food (`id`, `name_sr`, `name_en`, `price`, `unit`, `refuse`, `data`) VALUES (:id, :name_sr, :name_en, :price, :unit, :refuse, :data)';
+		}
+		$stmt = $this->db->prepare($sql);
+		$result = $stmt->execute(array(
+			':id' => $food_id,
+			':name_sr' => $name_sr,
+			':name_en' => $name_en,
+			':price' => $price,
+			':unit' => $unit,
+			':refuse' => $refuse,
+			':data' => $data
+		));
+		return ($result == true) ? 'ok' : 'error';
+	}
+
+
 
 	public function loadTasks ($user = NULL) {
         if (NULL == $user) {

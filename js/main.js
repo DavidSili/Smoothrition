@@ -46,6 +46,68 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click','#food-details #save', function () {
+        if ($('#food-details #name_sr').val() != "") {
+            $('#loader').addClass('loading');
+            $.post("index.php?do=food-input&stage=save-food&food_id=" + $('#fid').val(), {
+                name_sr: $('#name_sr').val(),
+                name_en: $('#name_en').val(),
+                price: $('#price').val(),
+                refuse: $('#refuse').val(),
+                unit: $('#unit').val(),
+                data: $('#data').val()
+            }, function (data) {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "500",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "500",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                if (data.state == 'ok') {
+                    toastr["success"]("Uspešno zapamćena namirnica", "Uspeh");
+                } else {
+                    toastr["error"]("Došlo je do greške", "Greška");
+                }
+                $('#wrapper').html(data.html);
+                $('#loader').removeClass('loading');
+            }, 'json');
+        } else {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "2000",
+                "extendedTimeOut": "500",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            toastr["info"]("Neophodno je da se popuni polje za naziv na srpskom jeziku", "info");
+        }
+    });
+
+
+
+
+
     $(document).on('click','#task-btn', function () {
         var task = $('#task').val();
         $.get("index.php",{do: "unos", task: task}, function (data) {
