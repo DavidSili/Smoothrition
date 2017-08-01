@@ -1,13 +1,28 @@
 /************   General   ************/
 
-html, body, #wrapper {
-  height: calc(100% - 78px);
+html, body {
+  height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
+
+  #wrapper {
+    height: calc(100% - 78px);
+
+    img {
+      width: 100%;
+    }
+    .module-wrapper {
+      padding: 10px;
+      height: 100%;
+
+      &.food-input-module {
+        background-color: #dff0d8;
+      }
+    }
+  }
 }
 body {
-  font-family: arial, sans-serif;
 }
 #loader {
   top: 0;
@@ -34,12 +49,6 @@ body {
       top: calc(50vh - 100px);
       left: calc(50vw - 100px);
     }
-  }
-}
-#wrapper {
-  padding: 10px;
-  img {
-    width: 100%;
   }
 }
 
@@ -73,36 +82,36 @@ body {
 
 /************   Food-input   ************/
 
-.food-select {
-  min-width: 300px;
-  max-width: 100%;
-}
-.food-select-row {
-  margin-bottom: 20px;
-}
+.food-input-module {
 
-.food-items-row {
-  display: none;
-}
+  .food-select {
+    min-width: 300px;
+    max-width: 100%;
+  }
+  .food-select-row {
+    margin-bottom: 20px;
+  }
+  .food-items-row {
+    display: none;
+  }
+  #food-details {
+    display: none;
 
-#food-details {
-  display: none;
+    input {
+      width: 300px;
 
-  input {
-    width: 300px;
-
-    &:read-only {
-      background-color: #ccc;
+      &:read-only {
+        background-color: #ccc;
+      }
+    }
+    label {
+      margin-bottom: 1px;
+    }
+    .input-row {
+      margin-bottom: 10px;
     }
   }
-  label {
-    margin-bottom: 1px;
-  }
-  .input-row {
-    margin-bottom: 10px;
-  }
 }
-
 
 #input-container {
   margin: 10px;

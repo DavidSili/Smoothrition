@@ -1,3 +1,4 @@
+<div class="module-wrapper food-input-module">
 <div class="food-select-row food-groups-row">
     <label for="food-groups">Grupe hrane</label><br>
     <select id="food-groups" class="food-select">
@@ -23,7 +24,7 @@
     <legend>Unos hrane:</legend>
     <div class="input-row">
         <label for="fid">ID</label><br>
-        <input type="text" id="fid" name="fid" readonly value="<?=$thatFood['fid']?>" />
+        <input type="text" id="fid" name="fid" readonly value="<?=(isset($thatFood['fid'])) ? $thatFood['fid'] : ''?>" />
     </div>
     <div class="input-row">
         <label for="name_sr">Naziv (srpski) *</label><br>
@@ -31,7 +32,7 @@
     </div>
     <div class="input-row">
         <label for="name_en">Naziv (engleski)</label><br>
-        <input type="text" id="name_en" name="name_en" readonly value="<?=$thatFood['name_en']?>" />
+        <input type="text" id="name_en" name="name_en" readonly value="<?=(isset($thatFood['name_en'])) ? $thatFood['name_en'] : ''?>" />
     </div>
     <div class="input-row">
         <label for="price">Cena (rsd)</label><br>
@@ -39,9 +40,10 @@
     </div>
     <div class="input-row">
         <label for="refuse">Procenat otpatka (%)</label><br>
-        <input type="text" id="refuse" name="refuse" value="<?=$thatFood['refuse']?>" />
+        <input type="text" id="refuse" name="refuse" value="<?=(isset($thatFood['refuse'])) ? $thatFood['refuse'] : ''?>" />
     </div>
-    <input type="hidden" id="unit" name="unit" value="<?=$thatFood['unit']?>" />
-    <input type="hidden" id="data" name="data" value='<?=$thatFood['data']?>' />
+    <input type="hidden" id="unit" name="unit" value="<?=(isset($thatFood['unit'])) ? $thatFood['unit'] : ''?>" />
+    <input type="hidden" id="data" name="data" value='<?=(isset($thatFood['data'])) ? $thatFood['data'] : ''?>' />
     <button id="save" class="btn btn-success">Zapamti</button>
 </fieldset>
+</div>

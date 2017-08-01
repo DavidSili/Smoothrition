@@ -1,12 +1,18 @@
 /************   General   ************/
-html, body, #wrapper {
-  height: calc(100% - 78px);
+html, body {
+  height: 100%;
   width: 100%;
   margin: 0;
   padding: 0; }
-
-body {
-  font-family: arial, sans-serif; }
+  html #wrapper, body #wrapper {
+    height: calc(100% - 78px); }
+    html #wrapper img, body #wrapper img {
+      width: 100%; }
+    html #wrapper .module-wrapper, body #wrapper .module-wrapper {
+      padding: 10px;
+      height: 100%; }
+      html #wrapper .module-wrapper.food-input-module, body #wrapper .module-wrapper.food-input-module {
+        background-color: #dff0d8; }
 
 #loader {
   top: 0;
@@ -29,11 +35,6 @@ body {
       height: 200px;
       top: calc(50vh - 100px);
       left: calc(50vw - 100px); }
-
-#wrapper {
-  padding: 10px; }
-  #wrapper img {
-    width: 100%; }
 
 /************   Login   ************/
 #login-wrapper {
@@ -60,25 +61,22 @@ body {
   padding: 5px 20px; }
 
 /************   Food-input   ************/
-.food-select {
+.food-input-module .food-select {
   min-width: 300px;
   max-width: 100%; }
-
-.food-select-row {
+.food-input-module .food-select-row {
   margin-bottom: 20px; }
-
-.food-items-row {
+.food-input-module .food-items-row {
   display: none; }
-
-#food-details {
+.food-input-module #food-details {
   display: none; }
-  #food-details input {
+  .food-input-module #food-details input {
     width: 300px; }
-    #food-details input:read-only {
+    .food-input-module #food-details input:read-only {
       background-color: #ccc; }
-  #food-details label {
+  .food-input-module #food-details label {
     margin-bottom: 1px; }
-  #food-details .input-row {
+  .food-input-module #food-details .input-row {
     margin-bottom: 10px; }
 
 #input-container {

@@ -22,7 +22,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Smoothrition</a>
+            <a class="navbar-brand" href="index.php">Smoothrition</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -42,7 +42,9 @@
     </div>
 </nav>
 <div id="wrapper">
-    <img src="images/bgn<?=rand(1,5)?>.jpg" />
+    <div class="module-wrapper starting">
+        <img src="images/bgn<?=rand(1,5)?>.jpg" />
+    </div>
 </div>
 <div id="loader">
     <div id="overlay"></div>
