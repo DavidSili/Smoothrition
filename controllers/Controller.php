@@ -9,6 +9,26 @@ class Controller {
     }
 }
 
+class AccessControl extends Controller {
+
+	public function checkAccess($ip)
+	{
+		$thisIp = $this->model->checkThisIp($ip);
+		$allIps = $this->model->checkAllIps();
+
+		return !($thisIp || $allIps);
+	}
+
+	public function loggedIn($ip) {
+		$this->model->userLoggedIn($ip);
+	}
+
+	public function notLoggedIn($ip) {
+		$this->model->notLoggedIn($ip);
+	}
+
+}
+
 class FoodInput extends Controller {
 
     public function start() {
@@ -46,21 +66,28 @@ class FoodInput extends Controller {
 	}
 
 	public function save_food($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data) {
-		$result = $this->model->save_food($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data);
+		$result = $this->model->saveFood($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data);
 
     	return array('state' => $result);
 	}
 
 }
 
-class Unos extends Controller {
-    public function insertTask($user, $task) {
-        return $this->model->insertT($user, $task);
-    }
-}
+class RDIInput extends Controller {
 
-class Done extends Controller {
-    public function doneTask($user, $t_id, $done) {
-        return $this->model->doneT($user, $t_id, $done);
-    }
+	public function start() {
+		$nutrients = $this->model->getAllNutrients();
+		ob_start();
+		require_once("views/rdi_input_view.php");
+		$return = ob_get_clean();
+
+		return array('html' => $return);
+	}
+
+	public function save($nid, $name_sr, $rdi) {
+		$result = $this->model->saveRdi($nid, $name_sr, $rdi);
+
+		return array('state' => $result);
+	}
+
 }

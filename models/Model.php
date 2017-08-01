@@ -24,13 +24,69 @@ class Model {
         $this->db = Db::getInstance();
     }
 
-    public function login ($username) {
+	// ----------------------------------- Authentication -----------------------------------
+
+	public function checkThisIp($ip) {
+		$time = time() - 900;
+		$sql = "SELECT * FROM login_attempts WHERE ip = :ip AND time > :time AND fails > 4";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			":ip" => $ip,
+			":time" => $time
+		));
+		$return = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $return;
+	}
+
+	public function checkAllIps() {
+		$time = time() - 15;
+		$sql = "SELECT * FROM login_attempts WHERE `time` > :time AND fails > 9";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(":time" => $time));
+		$return = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $return;
+	}
+
+	public function userLoggedIn($ip) {
+		$sql = 'UPDATE login_attempts SET `fails` = 0 WHERE `ip` = :ip';
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':ip' => $ip
+		));
+	}
+
+	public function notLoggedIn($ip) {
+		$sql = "SELECT * FROM login_attempts WHERE ip = :ip";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			":ip" => $ip,
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if ($row) {
+			$fails = $row['fails'] + 1;
+			$sql = 'UPDATE login_attempts SET `time` = :time, `fails` = :fails WHERE `ip` = :ip';
+		} else {
+			$fails = 1;
+			$sql = 'INSERT INTO login_attempts (`ip`, `time`, `fails`) VALUES (:ip, :time, :fails)';
+		}
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(
+			':time' => time(),
+			':fails' => $fails,
+			':ip' => $ip
+		));
+	}
+
+	public function login($username) {
         $sql = "SELECT username, password, settings FROM users WHERE username = :username";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(array(":username" => $username));
         $return = $stmt->fetch(PDO::FETCH_ASSOC);
         return $return;
     }
+
+	// ----------------------------------- Food Input -----------------------------------
 
 	public function getFoodGroups() {
 		return array(
@@ -183,7 +239,7 @@ class Model {
 
 	}
 
-	public function save_food($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data) {
+	public function saveFood($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data) {
 		if (empty($food_id) || empty($name_sr) || empty($name_en) || empty($unit) || empty($data)) {
 			return 'error';
 		}
@@ -205,39 +261,33 @@ class Model {
 		return ($result == true) ? 'ok' : 'error';
 	}
 
+	// ----------------------------------- RDI Input -----------------------------------
 
+	public function getAllNutrients() {
+		$sql = 'SELECT * FROM nutrients ORDER BY nid ASC';
+		$stmt = $this->db->query($sql);
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 
-	public function loadTasks ($user = NULL) {
-        if (NULL == $user) {
-            die;
-        }
-        $sql = "SELECT id, title, done FROM tasks WHERE user = :user";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(array(":user" => $user));
-        $return = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return json_encode($return);
-    }
-
-    public function insertT ($user = null, $task = null) {
-        if (empty($user) || null == $task) {
-            return false;
-        } else {
-            $sql = 'INSERT INTO tasks (user, title) VALUES (:user, :task)';
-            $stmt = $this->db->prepare($sql);
-            $result = $stmt->execute(array(':user' => $user, ':task' => $task));
-            return ($result == true) ? 'ok' : 'error';
-        }
-    }
-
-    public function doneT ($user = null, $t_id = null, $done) {
-        if (empty($user) || null == $t_id || null === $done ) {
-            return false;
-        } else {
-            $sql = 'UPDATE tasks SET done = :done WHERE `user` = :user AND id = :id';
-            $stmt = $this->db->prepare($sql);
-            $result = $stmt->execute(array(':user' => $user, ':id' => $t_id, ':done' => $done));
-            return ($result == true) ? '{"callback":"ok"}' : '{"callback":"error"}';
-        }
-    }
+	public function saveRdi($nid, $name_sr, $rdi) {
+		if (empty($nid)) return 'error';
+		if (empty($rdi)) {
+			$sql = 'UPDATE nutrients SET `name_sr` = :name_sr WHERE `nid` = :nid';
+			$stmt = $this->db->prepare($sql);
+			$result = $stmt->execute(array(
+				':name_sr' => $name_sr,
+				':nid' => $nid
+			));
+		} else {
+			$sql = 'UPDATE nutrients SET `name_sr` = :name_sr, `rdi` = :rdi WHERE `nid` = :nid';
+			$stmt = $this->db->prepare($sql);
+			$result = $stmt->execute(array(
+				':name_sr' => $name_sr,
+				':rdi' => str_replace(',','.',$rdi),
+				':nid' => $nid
+			));
+		}
+		return ($result == true) ? 'ok' : 'error';
+	}
 
 }

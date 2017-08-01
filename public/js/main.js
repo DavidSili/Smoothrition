@@ -10,7 +10,7 @@ $(document).ready(function() {
 		}, 'json');
 	});
 
-// Food input
+    // ----------- Food input -----------
 
     $(document).on('change','#food-groups', function () {
         if ($(this).val() != "") {
@@ -102,6 +102,43 @@ $(document).ready(function() {
             };
             toastr["info"]("Neophodno je da se popuni polje za naziv na srpskom jeziku", "info");
         }
+    });
+
+    // ----------- Food input -----------
+
+    $(document).on('click','.rdi-input-module .save', function () {
+        $('#loader').addClass('loading');
+        var name_sr = $(this).siblings('.name_sr').val();
+        var nid = $(this).data('id');
+        $.post("index.php?do=rdi-input&stage=save&nid=" + nid, {
+            name_sr: name_sr,
+            rdi: $(this).siblings('.rdi').val()
+        }, function (data) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "3000",
+                "extendedTimeOut": "500",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+            if (data.state == 'ok') {
+                toastr["success"]("Uspešno zapamćen nutrijent: " + name_sr, "Uspeh");
+            } else {
+                toastr["error"]("Došlo je do greške", "Greška");
+            }
+            $('#wrapper').html(data.html);
+            $('#loader').removeClass('loading');
+        }, 'json');
     });
 
 

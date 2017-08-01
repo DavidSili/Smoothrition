@@ -6,11 +6,11 @@
     <title>Smoothrition</title>
     <link rel="icon"
           type="image/png"
-          href="images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/select2.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/toastr.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+          href="public/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="public/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="public/css/toastr.min.css" />
+    <link rel="stylesheet" type="text/css" href="public/css/style.css" />
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -29,7 +29,7 @@
                 <li data-page="smooth-it" class="menu-item"><a href="#">Smooth-it</a></li>
                 <li data-page="individual-calc" class="menu-item"><a href="#">Pojedinačno</a></li>
                 <li data-page="food-input" class="menu-item"><a href="#">Unos namirnica</a></li>
-                <li data-page="dri-input" class="menu-item"><a href="#">Unos DRI</a></li>
+                <li data-page="rdi-input" class="menu-item"><a href="#">Unos RDI</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php
@@ -43,17 +43,17 @@
 </nav>
 <div id="wrapper">
     <div class="module-wrapper starting">
-        <img src="images/bgn<?=rand(1,5)?>.jpg" />
+        <img src="public/images/bgn<?=rand(1,5)?>.jpg" />
     </div>
 </div>
 <div id="loader">
     <div id="overlay"></div>
-    <img src="images/loader.gif" />
+    <img src="public/images/loader.gif" />
 </div>
-<script src="js/jquery-3.1.0.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/select2.min.js"></script>
-<script src="js/toastr.min.js"></script>
-<script src="js/main.js"></script>
+<script src="public/js/jquery-3.1.0.min.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
+<script src="public/js/select2.min.js"></script>
+<script src="public/js/toastr.min.js"></script>
+<script src="public/js/main.js"></script>
 </body>
 </html>
