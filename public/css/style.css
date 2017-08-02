@@ -7,14 +7,17 @@ html, body {
   html .error-img, body .error-img {
     width: 100%; }
   html #wrapper, body #wrapper {
-    min-height: calc(100vh - 78px);
-    height: calc(100% - 78px); }
+    min-height: calc(100vh - 58px);
+    height: calc(100% - 58px); }
     html #wrapper img, body #wrapper img {
       width: 100%; }
     html #wrapper .module-wrapper, body #wrapper .module-wrapper {
       padding: 10px;
-      min-height: calc(100vh - 78px);
+      min-height: calc(100vh - 58px);
       height: 100%; }
+
+.navbar {
+  margin-bottom: 0 !important; }
 
 #loader {
   top: 0;
@@ -81,7 +84,7 @@ html, body {
     .food-input-module #food-details .input-row {
       margin-bottom: 10px; }
 
-/************   Food-input   ************/
+/************   rdi-input   ************/
 .rdi-input-module {
   background-color: #f0ead8; }
   .rdi-input-module .input-row {
@@ -105,6 +108,66 @@ html, body {
       .rdi-input-module .input-row input.rdi {
         width: 60px;
         margin-right: 3px; }
+
+/************   Indi-calc   ************/
+.indi-calc-module {
+  background-color: #ead8f0; }
+  .indi-calc-module .food-select {
+    min-width: 300px;
+    max-width: 100%; }
+  .indi-calc-module .food-select-row {
+    margin-bottom: 20px; }
+  .indi-calc-module #food-details {
+    display: none; }
+    .indi-calc-module #food-details input {
+      width: 300px; }
+    .indi-calc-module #food-details label {
+      margin-bottom: 1px; }
+    .indi-calc-module #food-details .input-row {
+      margin-bottom: 10px;
+      overflow: hidden; }
+      .indi-calc-module #food-details .input-row .half {
+        width: 145px;
+        float: left; }
+        .indi-calc-module #food-details .input-row .half:first-child {
+          margin-right: 10px; }
+        .indi-calc-module #food-details .input-row .half input {
+          width: 145px; }
+
+.indi-report-module {
+  background-color: #ead8f0; }
+  .indi-report-module #food-general {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #ccc;
+    border-style: solid;
+    margin-bottom: 10px; }
+    .indi-report-module #food-general h3 {
+      margin-top: 0; }
+  .indi-report-module #exTab .nav-tabs {
+    padding: 0 10px; }
+    .indi-report-module #exTab .nav-tabs li:not(.active) {
+      background-color: #f2e6f7; }
+    .indi-report-module #exTab .nav-tabs a {
+      color: #000; }
+  .indi-report-module #exTab .tab-content {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px; }
+    .indi-report-module #exTab .tab-content #nutrients-table .group-label {
+      background-color: #ccc;
+      padding-left: 15px; }
+    .indi-report-module #exTab .tab-content #nutrients-table .n_full {
+      display: none; }
+    .indi-report-module #exTab .tab-content #nutrients-table tr td, .indi-report-module #exTab .tab-content #nutrients-table tr th {
+      padding: 3px 7px;
+      color: #000; }
+      .indi-report-module #exTab .tab-content #nutrients-table tr td .left, .indi-report-module #exTab .tab-content #nutrients-table tr th .left {
+        float: left; }
+      .indi-report-module #exTab .tab-content #nutrients-table tr td .right, .indi-report-module #exTab .tab-content #nutrients-table tr th .right {
+        float: right; }
 
 #input-container {
   margin: 10px;

@@ -172,6 +172,7 @@ class Model {
 		curl_close($ch);
 
 		$this->autoAddNutrients($thatFood->report->food->nutrients);
+		$this->autoAddBasicNutrients($food_id);
 
 		$data = array();
 		foreach ($thatFood->report->food->nutrients as $nutrient) {
@@ -236,7 +237,64 @@ class Model {
 				':unit' => $value['unit'],
 			));
 		}
+	}
 
+	/**
+	 * Creates a list of ids of basic nutrients
+	 *
+	 * @param $food_id
+	 */
+	public function autoAddBasicNutrients ($food_id) {
+		$url = 'https://api.nal.usda.gov/ndb/reports/';
+		$api_key = 'PvxMosJ3c46MpwRP9aQ0jn4Z8QO8lIFnHgr6tDDb';
+		$options = array(
+			'format'  => 'json',
+			'ndbno'   => $food_id,
+			'type'	  => 'b',
+			'api_key' => $api_key,
+		);
+		$url_request = $url;
+		foreach ($options as $key => $value) {
+			if ($url_request == $url) $url_request .= '?';
+			else $url_request .= '&';
+			$url_request .= $key.'='.$value;
+		}
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_URL,$url_request);
+		$thatFood = json_decode(curl_exec($ch));
+		curl_close($ch);
+		$nutrients = $thatFood->report->food->nutrients;
+
+		$allIds = array();
+		foreach ($nutrients as $nutrient) {
+			$allIds[] = $nutrient->nutrient_id;
+		}
+		$allIdsJoined = implode(',', $allIds);
+
+		$sql = 'SELECT nid FROM basic_nutrients WHERE FIND_IN_SET(nid, :array)';
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(":array" => $allIdsJoined));
+		$usedIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$usedIdsArray = array();
+		foreach ($usedIds as $nutrient) {
+			$usedIdsArray[] = $nutrient['nid'];
+		}
+
+		$unusedData = array();
+		foreach ($allIds as $id) {
+			if (!in_array($id, $usedIdsArray))
+				$unusedData[] = $id;
+		}
+
+		foreach ($unusedData as $id) {
+			$sql = 'INSERT INTO basic_nutrients (nid) VALUES (:nid)';
+			$stmt = $this->db->prepare($sql);
+			$stmt->execute(array(
+				':nid' => $id
+			));
+		}
 	}
 
 	public function saveFood($food_id, $name_sr, $name_en, $price, $refuse, $unit, $data) {
@@ -266,7 +324,12 @@ class Model {
 	public function getAllNutrients() {
 		$sql = 'SELECT * FROM nutrients ORDER BY nid ASC';
 		$stmt = $this->db->query($sql);
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$nutrients = array();
+		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+			$nutrients[$row['nid']] = $row;
+		};
+
+		return $nutrients;
 	}
 
 	public function saveRdi($nid, $name_sr, $rdi) {
@@ -288,6 +351,70 @@ class Model {
 			));
 		}
 		return ($result == true) ? 'ok' : 'error';
+	}
+
+	// ----------------------------------- RDI Input -----------------------------------
+
+	public function getAllMyFoods() {
+		$sql = 'SELECT * FROM food ORDER BY name_sr ASC';
+		$stmt = $this->db->query($sql);
+		$foods = array();
+		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $key => $food) {
+			$foods[$food['id']] = array();
+			$foods[$food['id']]['id'] = $food['id'];
+			$foods[$food['id']]['name'] = ($food['name_sr']) ? $food['name_sr'] : $food['name_en'];
+			$foods[$food['id']]['price'] = $food['price'];
+			$foods[$food['id']]['refuse'] = $food['refuse'];
+		};
+
+    	return $foods;
+	}
+
+	public function calculatedIndiResults($food_id, $name, $weight, $price, $refuse){
+		$general = array();
+		$general['total_price'] = round (100 * $price * $weight / 1000 * (1 + ($refuse / (100 - $refuse)))) / 100;
+		$general['name'] = $name;
+		$general['weight'] = intval($weight);
+		$general['utilization'] = 100 - $refuse;
+
+		$sql = "SELECT data FROM food WHERE id = :id";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute(array(":id" => $food_id));
+		$nutritionData = $stmt->fetch(PDO::FETCH_ASSOC)['data'];
+		$theseNutrients = json_decode($nutritionData);
+
+		$basicNutrients = $this->getBasicNutrients();
+		$allNutrients = $this->getAllNutrients();
+
+		$combinedNutrients = array();
+		foreach ($theseNutrients as $key => $nutrient) {
+			$combinedNutrients[$key] = array();
+			$combinedNutrients[$key]['group'] = $nutrient->g;
+			$combinedNutrients[$key]['name'] = ($allNutrients[$key]['name_sr']) ? $allNutrients[$key]['name_sr'] : $allNutrients[$key]['name_en'];
+			$combinedNutrients[$key]['unit'] = $allNutrients[$key]['unit'];
+			$value = $nutrient->v / 100 * $weight;
+			$combinedNutrients[$key]['value'] = $value;
+			$rdi = ($allNutrients[$key]['rdi']) ? 100 * $allNutrients[$key]['rdi'] / 100 : 0;
+			$combinedNutrients[$key]['rdi'] = $rdi;
+			$combinedNutrients[$key]['percentage'] = ($rdi) ? round( 10000 * $value / $rdi )/100 : 0;
+			$combinedNutrients[$key]['list_type'] = (in_array($key, $basicNutrients)) ? 'b' : 'f';
+		}
+
+		$data['general'] = $general;
+		$data['nutrients'] = $combinedNutrients;
+
+		return $data;
+	}
+
+	public function getBasicNutrients() {
+		$sql = 'SELECT nid FROM basic_nutrients ORDER BY nid ASC';
+		$stmt = $this->db->query($sql);
+		$ids = array();
+		foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
+			$ids[] = intval($row['nid']);
+		};
+
+		return $ids;
 	}
 
 }

@@ -27,7 +27,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li data-page="smooth-it" class="menu-item"><a href="#">Smooth-it</a></li>
-                <li data-page="individual-calc" class="menu-item"><a href="#">Pojedinačno</a></li>
+                <li data-page="indi-calc" class="menu-item"><a href="#">Pojedinačno</a></li>
                 <li data-page="food-input" class="menu-item"><a href="#">Unos namirnica</a></li>
                 <li data-page="rdi-input" class="menu-item"><a href="#">Unos RDI</a></li>
             </ul>

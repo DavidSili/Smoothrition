@@ -11,18 +11,22 @@ html, body {
   }
 
   #wrapper {
-    min-height: calc(100vh - 78px);
-    height: calc(100% - 78px);
+    min-height: calc(100vh - 58px);
+    height: calc(100% - 58px);
 
     img {
       width: 100%;
     }
     .module-wrapper {
       padding: 10px;
-      min-height: calc(100vh - 78px);
+      min-height: calc(100vh - 58px);
       height: 100%;
     }
   }
+}
+
+.navbar {
+  margin-bottom: 0 !important;
 }
 
 #loader {
@@ -81,7 +85,6 @@ html, body {
   }
 }
 
-
 /************   Food-input   ************/
 
 .food-input-module {
@@ -116,7 +119,7 @@ html, body {
   }
 }
 
-/************   Food-input   ************/
+/************   rdi-input   ************/
 
 .rdi-input-module {
   background-color: #f0ead8;
@@ -152,6 +155,106 @@ html, body {
     }
   }
 }
+
+/************   Indi-calc   ************/
+
+.indi-calc-module {
+  background-color: #ead8f0;
+
+  .food-select {
+    min-width: 300px;
+    max-width: 100%;
+  }
+  .food-select-row {
+    margin-bottom: 20px;
+  }
+  #food-details {
+    display: none;
+
+    input {
+      width: 300px;
+    }
+    label {
+      margin-bottom: 1px;
+    }
+    .input-row {
+      margin-bottom: 10px;
+      overflow: hidden;
+
+      .half {
+        width: 145px;
+        float: left;
+
+        &:first-child {
+          margin-right: 10px;
+        }
+        input {
+          width: 145px;
+        }
+      }
+    }
+  }
+}
+
+.indi-report-module {
+  background-color: #ead8f0;
+
+  #food-general {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #ccc;
+    border-style: solid;
+    margin-bottom: 10px;
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+  #exTab {
+    .nav-tabs {
+      padding: 0 10px;
+
+      li:not(.active) {
+        background-color: #f2e6f7;
+      }
+      a {
+        color: #000;
+      }
+    }
+    .tab-content {
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+
+      #nutrients-table {
+
+        .group-label {
+          background-color: #ccc;
+          padding-left: 15px;
+        }
+        .n_full {
+          display: none;
+        }
+        tr {
+          td, th {
+            padding: 3px 7px;
+            color: #000;
+
+            .left {
+              float: left;
+            }
+            .right {
+              float: right;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 
 #input-container {

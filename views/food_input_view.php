@@ -1,5 +1,5 @@
 <div class="module-wrapper food-input-module">
-<div class="food-select-row food-groups-row">
+<div class="food-select-row">
     <label for="food-groups">Grupe hrane</label><br>
     <select id="food-groups" class="food-select">
         <option></option>

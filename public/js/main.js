@@ -4,7 +4,9 @@ $(document).ready(function() {
         if ($('#myNavbar').hasClass('in')) $('.navbar-toggle').click();
 	    $('.navbar-nav li').removeClass('active');
 		$(this).addClass('active');
-		$.get("index.php",{do: $(this).data('page')}, function (data) {
+		$.get("index.php",{
+		    do: $(this).data('page')
+        }, function (data) {
 			$('#wrapper').html(data.html);
 			$('select').select2();
 		}, 'json');
@@ -15,7 +17,11 @@ $(document).ready(function() {
     $(document).on('change','#food-groups', function () {
         if ($(this).val() != "") {
             $('#loader').addClass('loading');
-            $.get("index.php", {do: 'food-input', stage: 'food-items', group_id: $(this).val()}, function (data) {
+            $.get("index.php", {
+                do: 'food-input',
+                stage: 'food-items',
+                group_id: $(this).val()
+            }, function (data) {
                 $('#wrapper').html(data.html);
                 $('.food-items-row').show();
                 $('select').select2();
@@ -33,7 +39,12 @@ $(document).ready(function() {
         if ($(this).val() != "") {
             var group_id = $('#food-groups').val();
             $('#loader').addClass('loading');
-            $.get("index.php", {do: 'food-input', stage: 'that-food', food_id: $(this).val(), group_id: group_id}, function (data) {
+            $.get("index.php", {
+                do: 'food-input',
+                stage: 'that-food',
+                food_id: $(this).val(),
+                group_id: group_id
+            }, function (data) {
                 $('#wrapper').html(data.html);
                 $('.food-items-row').show();
                 $('#food-details').show();
@@ -104,7 +115,7 @@ $(document).ready(function() {
         }
     });
 
-    // ----------- Food input -----------
+    // ----------- RDI input -----------
 
     $(document).on('click','.rdi-input-module .save', function () {
         $('#loader').addClass('loading');
@@ -136,6 +147,36 @@ $(document).ready(function() {
             } else {
                 toastr["error"]("Došlo je do greške", "Greška");
             }
+            $('#wrapper').html(data.html);
+            $('#loader').removeClass('loading');
+        }, 'json');
+    });
+
+    // ----------- Indi calc -----------
+
+    $(document).on('change','#foods', function () {
+        $selectedItem = $('#foods').find(':selected');
+        if ($(this).val() != '') {
+            $('#price').val($selectedItem.data('price'));
+            $('#refuse').val($selectedItem.data('refuse'));
+            $('#food-details').show();
+        } else {
+            $('#food-details').hide();
+        }
+    });
+
+    $(document).on('click','.indi-calc-module #calc', function () {
+        $('#loader').addClass('loading');
+        $selectedItem = $('#foods').find(':selected');
+        $.get("index.php", {
+            do: 'indi-calc',
+            stage: 'calc',
+            food_id: $selectedItem.val(),
+            name: $selectedItem.data('name'),
+            weight: $('#weight').val(),
+            price: $selectedItem.data('price'),
+            refuse: $selectedItem.data('refuse')
+        }, function (data) {
             $('#wrapper').html(data.html);
             $('#loader').removeClass('loading');
         }, 'json');

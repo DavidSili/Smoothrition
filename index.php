@@ -34,8 +34,22 @@ elseif ("" == $user || $user == false) {
 elseif ($do == "smooth-it") {
 
 }
-elseif ($do == "individual-calc") {
-
+elseif ($do == "indi-calc") {
+	$stage = isset($_GET['stage']) ? $_GET['stage'] : 'start';
+	$food_id = isset($_GET['food_id']) ? $_GET['food_id'] : '';
+	$name = isset($_GET['name']) ? $_GET['name'] : '';
+	$weight = isset($_GET['weight']) ? $_GET['weight'] : 0;
+	$price = isset($_GET['price']) ? $_GET['price'] : 0;
+	$refuse = isset($_GET['refuse']) ? $_GET['refuse'] : 0;
+	$RI = new NutriCalc($model);
+	switch ($stage) {
+		case 'start':
+			echo json_encode($RI->startIndi());
+			break;
+		case 'calc':
+			echo json_encode($RI->indiCalc($food_id, $name, $weight, $price, $refuse));
+			break;
+	}
 }
 elseif ($do == "food-input") {
 	$stage = isset($_GET['stage']) ? $_GET['stage'] : 'start';

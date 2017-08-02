@@ -91,3 +91,27 @@ class RDIInput extends Controller {
 	}
 
 }
+
+class NutriCalc extends Controller {
+
+	public function startIndi() {
+		$foods = $this->model->getAllMyFoods();
+		ob_start();
+		require_once("views/indi_calc_view.php");
+		$return = ob_get_clean();
+
+		return array('html' => $return);
+	}
+
+	public function indiCalc($food_id, $name, $weight, $price, $refuse){
+		$results = $this->model->calculatedIndiResults($food_id, $name, $weight, $price, $refuse);
+		$general = $results['general'];
+		$nutrients = $results['nutrients'];
+		ob_start();
+		require_once("views/indi_report_view.php");
+		$return = ob_get_clean();
+
+		return array('html' => $return);
+	}
+
+}
