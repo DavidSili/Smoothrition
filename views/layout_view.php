@@ -9,6 +9,7 @@
           href="public/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="public/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="public/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="public/css/toastr.min.css" />
     <link rel="stylesheet" type="text/css" href="public/css/style.css" />
 </head>

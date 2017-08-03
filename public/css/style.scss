@@ -207,46 +207,62 @@ html, body {
     border-color: #ccc;
     border-style: solid;
     margin-bottom: 10px;
+    overflow: hidden;
 
     h3 {
       margin-top: 0;
     }
-  }
-  #exTab {
-    .nav-tabs {
-      padding: 0 10px;
-
-      li:not(.active) {
-        background-color: #f2e6f7;
-      }
-      a {
-        color: #000;
-      }
+    .left-box {
+      float: left;
+      width: 200px;
     }
-    .tab-content {
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 10px;
+    .right-box {
+      float: right;
+    }
+  }
+  .response-panel {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
 
-      #nutrients-table {
+    #nutrients-table {
+      margin-bottom: 0;
 
-        .group-label {
-          background-color: #ccc;
-          padding-left: 15px;
-        }
-        .n_full {
-          display: none;
-        }
-        tr {
-          td, th {
-            padding: 3px 7px;
-            color: #000;
+      .values-col {
+        width: 200px;
+      }
+      .value-cell {
+        padding: 0;
+      }
+      .group-label {
+        background-color: #ccc;
+        padding-left: 15px;
+      }
+      .n_full {
+        display: none;
+      }
+      tr {
+        td, th {
+          padding: 3px 7px;
+          color: #000;
 
-            .left {
-              float: left;
+          &.value-cell {
+            .cell-histogram {
+              position: absolute;
+              height: 26px;
+              background-color: #c0d8f0;
             }
-            .right {
-              float: right;
+            .cell-content {
+              position: absolute;
+              width: 200px;
+              padding: 3px 7px 2px 7px;
+
+              .left {
+                float: left;
+              }
+              .right {
+                float: right;
+              }
             }
           }
         }

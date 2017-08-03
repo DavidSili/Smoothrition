@@ -370,17 +370,18 @@ class Model {
     	return $foods;
 	}
 
-	public function calculatedIndiResults($food_id, $name, $weight, $price, $refuse){
+	public function calculatedIndiResults($food_id, $weight, $price, $refuse){
 		$general = array();
 		$general['total_price'] = round (100 * $price * $weight / 1000 * (1 + ($refuse / (100 - $refuse)))) / 100;
-		$general['name'] = $name;
 		$general['weight'] = intval($weight);
 		$general['utilization'] = 100 - $refuse;
 
-		$sql = "SELECT data FROM food WHERE id = :id";
+		$sql = "SELECT name_sr, name_en, data FROM food WHERE id = :id";
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute(array(":id" => $food_id));
-		$nutritionData = $stmt->fetch(PDO::FETCH_ASSOC)['data'];
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		$nutritionData = $result['data'];
+		$general['name'] = ($result['name_sr']) ? $result['name_sr'] : $result['name_en'];
 		$theseNutrients = json_decode($nutritionData);
 
 		$basicNutrients = $this->getBasicNutrients();

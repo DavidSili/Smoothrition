@@ -143,31 +143,45 @@ html, body {
     border-width: 2px;
     border-color: #ccc;
     border-style: solid;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    overflow: hidden; }
     .indi-report-module #food-general h3 {
       margin-top: 0; }
-  .indi-report-module #exTab .nav-tabs {
-    padding: 0 10px; }
-    .indi-report-module #exTab .nav-tabs li:not(.active) {
-      background-color: #f2e6f7; }
-    .indi-report-module #exTab .nav-tabs a {
-      color: #000; }
-  .indi-report-module #exTab .tab-content {
+    .indi-report-module #food-general .left-box {
+      float: left;
+      width: 200px; }
+    .indi-report-module #food-general .right-box {
+      float: right; }
+  .indi-report-module .response-panel {
     background-color: #fff;
     padding: 10px;
     border-radius: 10px; }
-    .indi-report-module #exTab .tab-content #nutrients-table .group-label {
-      background-color: #ccc;
-      padding-left: 15px; }
-    .indi-report-module #exTab .tab-content #nutrients-table .n_full {
-      display: none; }
-    .indi-report-module #exTab .tab-content #nutrients-table tr td, .indi-report-module #exTab .tab-content #nutrients-table tr th {
-      padding: 3px 7px;
-      color: #000; }
-      .indi-report-module #exTab .tab-content #nutrients-table tr td .left, .indi-report-module #exTab .tab-content #nutrients-table tr th .left {
-        float: left; }
-      .indi-report-module #exTab .tab-content #nutrients-table tr td .right, .indi-report-module #exTab .tab-content #nutrients-table tr th .right {
-        float: right; }
+    .indi-report-module .response-panel #nutrients-table {
+      margin-bottom: 0; }
+      .indi-report-module .response-panel #nutrients-table .values-col {
+        width: 200px; }
+      .indi-report-module .response-panel #nutrients-table .value-cell {
+        padding: 0; }
+      .indi-report-module .response-panel #nutrients-table .group-label {
+        background-color: #ccc;
+        padding-left: 15px; }
+      .indi-report-module .response-panel #nutrients-table .n_full {
+        display: none; }
+      .indi-report-module .response-panel #nutrients-table tr td, .indi-report-module .response-panel #nutrients-table tr th {
+        padding: 3px 7px;
+        color: #000; }
+        .indi-report-module .response-panel #nutrients-table tr td.value-cell .cell-histogram, .indi-report-module .response-panel #nutrients-table tr th.value-cell .cell-histogram {
+          position: absolute;
+          height: 26px;
+          background-color: #c0d8f0; }
+        .indi-report-module .response-panel #nutrients-table tr td.value-cell .cell-content, .indi-report-module .response-panel #nutrients-table tr th.value-cell .cell-content {
+          position: absolute;
+          width: 200px;
+          padding: 3px 7px 2px 7px; }
+          .indi-report-module .response-panel #nutrients-table tr td.value-cell .cell-content .left, .indi-report-module .response-panel #nutrients-table tr th.value-cell .cell-content .left {
+            float: left; }
+          .indi-report-module .response-panel #nutrients-table tr td.value-cell .cell-content .right, .indi-report-module .response-panel #nutrients-table tr th.value-cell .cell-content .right {
+            float: right; }
 
 #input-container {
   margin: 10px;

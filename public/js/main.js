@@ -172,7 +172,6 @@ $(document).ready(function() {
             do: 'indi-calc',
             stage: 'calc',
             food_id: $selectedItem.val(),
-            name: $selectedItem.data('name'),
             weight: $('#weight').val(),
             price: $selectedItem.data('price'),
             refuse: $selectedItem.data('refuse')
@@ -182,7 +181,19 @@ $(document).ready(function() {
         }, 'json');
     });
 
-
+    $(document).on('click','.indi-report-module #detailed', function () {
+        if ($(this).data('shows') == 'basic') {
+            $('.n_full').toggle();
+            $(this).find('.btn-text').html($(this).data('basic'));
+            $(this).find('i').prop('class', 'fa fa-toggle-up');
+            $(this).data('shows', 'detailed');
+        } else {
+            $('.n_full').toggle();
+            $(this).find('.btn-text').html($(this).data('detailed'));
+            $(this).find('i').prop('class', 'fa fa-toggle-down');
+            $(this).data('shows', 'basic');
+        }
+    });
 
 
 

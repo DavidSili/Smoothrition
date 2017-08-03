@@ -103,8 +103,8 @@ class NutriCalc extends Controller {
 		return array('html' => $return);
 	}
 
-	public function indiCalc($food_id, $name, $weight, $price, $refuse){
-		$results = $this->model->calculatedIndiResults($food_id, $name, $weight, $price, $refuse);
+	public function indiCalc($food_id, $weight, $price, $refuse){
+		$results = $this->model->calculatedIndiResults($food_id, $weight, $price, $refuse);
 		$general = $results['general'];
 		$nutrients = $results['nutrients'];
 		ob_start();

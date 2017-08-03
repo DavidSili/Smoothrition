@@ -5,7 +5,7 @@
         <option></option>
         <?php
         foreach ($foods as $key => $food) { ?>
-        <option data-refuse="<?=$food['refuse']?>" data-price="<?=$food['price']?>" data-name="<?=$food['name']?>" value="<?=$food['id']?>" ><?=$food['name']?></option>
+        <option data-refuse="<?=$food['refuse']?>" data-price="<?=$food['price']?>" value="<?=$food['id']?>" ><?=$food['name']?></option>
         <?php } ?>
     </select>
 </div>
