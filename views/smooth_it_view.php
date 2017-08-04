@@ -1,8 +1,8 @@
 <div class="module-wrapper smooth-it-module">
-<h3>Smooth it!</h3>
     <div class="foods-container">
         <div class="indi-food-container">
             <div class="input-row which-food">
+                <label for="foods">Hrana</label><br>
                 <select class="food-select">
                     <option></option>
                     <?php

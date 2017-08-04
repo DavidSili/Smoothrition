@@ -34,7 +34,7 @@
                 <tr class="<?=($nutrient['list_type'] == 'b') ? 'n_basic' : 'n_full'?>">
                     <td><?=$nutrient['name']?></td>
                     <td class="value-cell">
-                        <div class="cell-histogram" style="width:<?=($nutrient['percentage'] >= 100) ? '200px;background-color:#cef0c0;' : round(($nutrient['percentage'] * 2)).'px;'?>"></div>
+                        <div class="cell-histogram" style="width:<?=($nutrient['percentage'] >= 100) ? '140px;background-color:#cef0c0;' : round(($nutrient['percentage'] * 1.4)).'px;'?>"></div>
                         <div class="cell-content">
                             <span class="left"><?=$nutrient['value'].' '.$nutrient['unit']?></span>
                             <span class="right">(<?=$nutrient['percentage']?>%)</span>

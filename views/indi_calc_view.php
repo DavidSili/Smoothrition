@@ -10,8 +10,7 @@
     </select>
 </div>
 
-<fieldset id="food-details">
-    <legend>Podaci za računanje:</legend>
+<div id="food-details">
     <div class="input-row">
         <label for="weight">Težina (g)</label><br>
         <input type="number" id="weight" min="0" autofocus />
@@ -29,5 +28,5 @@
     <div class="input-row">
         <button id="calc" class="btn btn-primary">Izračunaj</button>
     </div>
-</fieldset>
+</div>
 </div>

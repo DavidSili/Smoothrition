@@ -70,11 +70,13 @@ html, body {
     min-width: 300px;
     max-width: 100%; }
   .food-input-module .food-select-row {
-    margin-bottom: 20px; }
+    margin-bottom: 10px; }
   .food-input-module .food-items-row {
     display: none; }
   .food-input-module #food-details {
     display: none; }
+    .food-input-module #food-details legend {
+      margin-bottom: 5px; }
     .food-input-module #food-details input {
       width: 300px; }
       .food-input-module #food-details input:read-only {
@@ -103,7 +105,7 @@ html, body {
     .rdi-input-module .input-row input {
       float: left; }
       .rdi-input-module .input-row input.name_sr {
-        width: 250px;
+        width: 160px;
         margin-right: 10px; }
       .rdi-input-module .input-row input.rdi {
         width: 60px;
@@ -116,7 +118,7 @@ html, body {
     min-width: 300px;
     max-width: 100%; }
   .indi-calc-module .food-select-row {
-    margin-bottom: 20px; }
+    margin-bottom: 10px; }
   .indi-calc-module #food-details {
     display: none; }
     .indi-calc-module #food-details input {
@@ -149,7 +151,7 @@ html, body {
       margin-top: 0; }
     .indi-report-module #food-general .left-box, .smooth-it-report-module #food-general .left-box {
       float: left;
-      width: 200px; }
+      width: 140px; }
     .indi-report-module #food-general .right-box, .smooth-it-report-module #food-general .right-box {
       float: right; }
   .indi-report-module .response-panel, .smooth-it-report-module .response-panel {
@@ -159,7 +161,7 @@ html, body {
     .indi-report-module .response-panel #nutrients-table, .smooth-it-report-module .response-panel #nutrients-table {
       margin-bottom: 0; }
       .indi-report-module .response-panel #nutrients-table .values-col, .smooth-it-report-module .response-panel #nutrients-table .values-col {
-        width: 200px; }
+        width: 140px; }
       .indi-report-module .response-panel #nutrients-table .value-cell, .smooth-it-report-module .response-panel #nutrients-table .value-cell {
         padding: 0; }
       .indi-report-module .response-panel #nutrients-table .group-label, .smooth-it-report-module .response-panel #nutrients-table .group-label {
@@ -176,7 +178,7 @@ html, body {
           background-color: #c0d8f0; }
         .indi-report-module .response-panel #nutrients-table tr td.value-cell .cell-content, .indi-report-module .response-panel #nutrients-table tr th.value-cell .cell-content, .smooth-it-report-module .response-panel #nutrients-table tr td.value-cell .cell-content, .smooth-it-report-module .response-panel #nutrients-table tr th.value-cell .cell-content {
           position: absolute;
-          width: 200px;
+          width: 140px;
           padding: 3px 7px 2px 7px; }
           .indi-report-module .response-panel #nutrients-table tr td.value-cell .cell-content .left, .indi-report-module .response-panel #nutrients-table tr th.value-cell .cell-content .left, .smooth-it-report-module .response-panel #nutrients-table tr td.value-cell .cell-content .left, .smooth-it-report-module .response-panel #nutrients-table tr th.value-cell .cell-content .left {
             float: left; }
@@ -194,7 +196,7 @@ html, body {
       min-width: 300px;
       max-width: 100%; }
     .smooth-it-module .indi-food-container .food-select-row {
-      margin-bottom: 20px; }
+      margin-bottom: 10px; }
     .smooth-it-module .indi-food-container .food-params input {
       width: 300px; }
     .smooth-it-module .indi-food-container .food-params label {

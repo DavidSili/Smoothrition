@@ -11,6 +11,8 @@ if (!$AC->checkAccess($_SERVER['REMOTE_ADDR'])) {
 	die;
 }
 
+$foo = password_hash('dam4sc3naSILISTRA', PASSWORD_DEFAULT);
+
 $do = isset($_GET['do']) ? $_GET['do'] : '';
 $user = isset($_SESSION['username']) ? $_SESSION['username'] : "";
 

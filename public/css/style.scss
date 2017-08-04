@@ -95,7 +95,7 @@ html, body {
     max-width: 100%;
   }
   .food-select-row {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .food-items-row {
     display: none;
@@ -103,6 +103,9 @@ html, body {
   #food-details {
     display: none;
 
+    legend {
+      margin-bottom: 5px;
+    }
     input {
       width: 300px;
 
@@ -145,7 +148,7 @@ html, body {
       float: left;
 
       &.name_sr {
-        width: 250px;
+        width: 160px;
         margin-right: 10px;
       }
       &.rdi {
@@ -166,7 +169,7 @@ html, body {
     max-width: 100%;
   }
   .food-select-row {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   #food-details {
     display: none;
@@ -214,7 +217,7 @@ html, body {
     }
     .left-box {
       float: left;
-      width: 200px;
+      width: 140px;
     }
     .right-box {
       float: right;
@@ -229,7 +232,7 @@ html, body {
       margin-bottom: 0;
 
       .values-col {
-        width: 200px;
+        width: 140px;
       }
       .value-cell {
         padding: 0;
@@ -254,7 +257,7 @@ html, body {
             }
             .cell-content {
               position: absolute;
-              width: 200px;
+              width: 140px;
               padding: 3px 7px 2px 7px;
 
               .left {
@@ -286,7 +289,7 @@ html, body {
       max-width: 100%;
     }
     .food-select-row {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     .food-params {
 
