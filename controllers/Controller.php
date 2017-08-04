@@ -114,4 +114,24 @@ class NutriCalc extends Controller {
 		return array('html' => $return);
 	}
 
+	public function startMulti() {
+		$foods = $this->model->getAllMyFoods();
+		ob_start();
+		require_once("views/smooth_it_view.php");
+		$return = ob_get_clean();
+
+		return array('html' => $return);
+	}
+
+	public function smoothIt($data){
+		$results = $this->model->smoothItResults($data);
+		$general = $results['general'];
+		$nutrients = $results['nutrients'];
+		ob_start();
+		require_once("views/smooth_it_report_view.php");
+		$return = ob_get_clean();
+
+		return array('html' => $return);
+	}
+
 }

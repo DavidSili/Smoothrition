@@ -418,4 +418,57 @@ class Model {
 		return $ids;
 	}
 
+	public function smoothItResults($data){
+		$data = json_decode($data, true);
+		$basicNutrients = $this->getBasicNutrients();
+		$allNutrients = $this->getAllNutrients();
+		$general = array(
+			'total_price' => 0,
+			'weight' => 0,
+			'utilization' => 0,
+		);
+		$combinedNutrients = array();
+		$refuse_weight = 0;
+
+		foreach ($data as $food) {
+			$general['total_price'] += round (100 * $food['price'] * $food['weight'] / 1000 * (1 + ($food['refuse'] / (100 - $food['refuse'])))) / 100;
+			$general['weight'] += intval($food['weight']);
+			$refuse_weight += $food['weight'] * $food['refuse'] / 100;
+
+			$sql = "SELECT name_sr, name_en, data FROM food WHERE id = :id";
+			$stmt = $this->db->prepare($sql);
+			$stmt->execute(array(":id" => $food['food_id']));
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+			$nutritionData = $result['data'];
+			$name = ($result['name_sr']) ? $result['name_sr'] : $result['name_en'];
+			$general['name'] = (isset($general['name'])) ? $general['name'].', '.$name : $name;
+			$theseNutrients = json_decode($nutritionData);
+
+			foreach ($theseNutrients as $key => $nutrient) {
+				// do'vde sam stigao
+				if (!isset($combinedNutrients[$key])) {
+					$combinedNutrients[$key] = array();
+					$combinedNutrients[$key]['group'] = $nutrient->g;
+					$combinedNutrients[$key]['name'] = ($allNutrients[$key]['name_sr']) ? $allNutrients[$key]['name_sr'] : $allNutrients[$key]['name_en'];
+					$combinedNutrients[$key]['unit'] = $allNutrients[$key]['unit'];
+					$rdi = ($allNutrients[$key]['rdi']) ? 100 * $allNutrients[$key]['rdi'] / 100 : 0;
+					$combinedNutrients[$key]['rdi'] = $rdi;
+					$combinedNutrients[$key]['list_type'] = (in_array($key, $basicNutrients)) ? 'b' : 'f';
+					$combinedNutrients[$key]['value'] = $nutrient->v / 100 * $food['weight'];
+				}
+				$combinedNutrients[$key]['value'] += $nutrient->v / 100 * $food['weight'];
+			}
+		}
+		foreach ($combinedNutrients as $key => $value) {
+			$combinedNutrients[$key]['percentage'] = ($value['rdi']) ? round( 10000 * $value['value'] / $value['rdi'] )/100 : 0;
+		}
+
+		$general['utilization'] = 100 - round(100 * $refuse_weight / $general['weight']);
+
+		$data['general'] = $general;
+		$data['nutrients'] = $combinedNutrients;
+
+		return $data;
+	}
+
 }

@@ -196,7 +196,7 @@ html, body {
   }
 }
 
-.indi-report-module {
+.indi-report-module, .smooth-it-report-module {
   background-color: #ead8f0;
 
   #food-general {
@@ -271,41 +271,57 @@ html, body {
   }
 }
 
+/************   Smooth-it   ************/
 
+.smooth-it-module {
+  background-color: #d8e4f0;
 
-#input-container {
-  margin: 10px;
-  padding: 10px;
-  border: 3px ridge #555;
-}
+  .indi-food-container {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #555;
 
-#tasks-container {
-  margin: 10px;
-  padding: 10px;
-  border: 3px ridge #555;
-}
+    .food-select {
+      min-width: 300px;
+      max-width: 100%;
+    }
+    .food-select-row {
+      margin-bottom: 20px;
+    }
+    .food-params {
 
-.row {
-  height: 20px;
-  padding: 5px;
-  width: calc( 100% - 10px );
-  &:nth-child(even) {
-    background-color: #def;
+      input {
+        width: 300px;
+      }
+      label {
+        margin-bottom: 1px;
+      }
+      .input-row {
+        margin-bottom: 10px;
+        overflow: hidden;
+
+        .half {
+          width: 145px;
+          float: left;
+
+          &:first-child {
+            margin-right: 10px;
+          }
+          input {
+            width: 145px;
+          }
+        }
+      }
+    }
   }
-  input {
-    width: 20px;
-    float: left;
-  }
-  div {
-    float: left;
+  .submit-container {
+
+    #calc {
+      margin-left: 110px;
+    }
   }
 }
 
-.done {
-  color: #777;
-  text-decoration: line-through;
-}
-
-#logout {
-  float: right;
+.smooth-it-report-module {
+  background-color: #d8e4f0;
 }

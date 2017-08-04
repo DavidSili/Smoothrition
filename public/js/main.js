@@ -8,7 +8,7 @@ $(document).ready(function() {
 		    do: $(this).data('page')
         }, function (data) {
 			$('#wrapper').html(data.html);
-			$('select').select2();
+			$('select:not(.template)').select2();
 		}, 'json');
 	});
 
@@ -181,7 +181,7 @@ $(document).ready(function() {
         }, 'json');
     });
 
-    $(document).on('click','.indi-report-module #detailed', function () {
+    $(document).on('click','.indi-report-module #detailed, .smooth-it-report-module #detailed', function () {
         if ($(this).data('shows') == 'basic') {
             $('.n_full').toggle();
             $(this).find('.btn-text').html($(this).data('basic'));
@@ -194,6 +194,49 @@ $(document).ready(function() {
             $(this).data('shows', 'basic');
         }
     });
+
+        // ----------- Smooth it -----------
+
+    $(document).on('change','.food-select', function (e) {
+        $selectedItem = $(this).find(':selected');
+        $indi_food_container = $(this).closest('.indi-food-container');
+        if ($(this).val() != '') {
+            $indi_food_container.find('.price').val($selectedItem.data('price'));
+            $indi_food_container.find('.refuse').val($selectedItem.data('refuse'));
+            $indi_food_container.find('.food-params').removeClass('hidden');
+        } else {
+            $indi_food_container.find('.food-params').addClass('hidden');
+        }
+    });
+
+    $(document).on('click','.smooth-it-module #add', function () {
+        $('.foods-container').append($('#template').html());
+        $('.foods-container select').select2();
+    });
+
+    $(document).on('click','.smooth-it-module #calc', function () {
+        var $data = [];
+        var $foods = $('.foods-container').children();
+        $foods.each(function() {
+            food = {
+                'food_id': $(this).find('.food-select').val(),
+                'weight': $(this).find('.weight').val(),
+                'price':  $(this).find('.price').val(),
+                'refuse':  $(this).find('.refuse').val()
+            };
+            $data.push(food);
+        });
+        var parsedData = JSON.stringify($data);
+
+        $('#loader').addClass('loading');
+        $.post("index.php?do=smooth-it&stage=calc", {
+            data: parsedData
+        }, function (data) {
+            $('#wrapper').html(data.html);
+            $('#loader').removeClass('loading');
+        }, 'json');
+    });
+
 
 
 

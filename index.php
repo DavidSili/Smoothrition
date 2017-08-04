@@ -32,7 +32,17 @@ elseif ("" == $user || $user == false) {
 	require_once("views/login_view.php");
 }
 elseif ($do == "smooth-it") {
-
+	$stage = isset($_GET['stage']) ? $_GET['stage'] : 'start';
+	$RI = new NutriCalc($model);
+	switch ($stage) {
+		case 'start':
+			echo json_encode($RI->startMulti());
+			break;
+		case 'calc':
+			$calc_data = isset($_POST['data']) ? $_POST['data'] : '';
+			echo json_encode($RI->smoothIt($calc_data));
+			break;
+	}
 }
 elseif ($do == "indi-calc") {
 	$stage = isset($_GET['stage']) ? $_GET['stage'] : 'start';
