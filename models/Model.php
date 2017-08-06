@@ -394,10 +394,12 @@ class Model {
 			$combinedNutrients[$key]['name'] = ($allNutrients[$key]['name_sr']) ? $allNutrients[$key]['name_sr'] : $allNutrients[$key]['name_en'];
 			$combinedNutrients[$key]['unit'] = $allNutrients[$key]['unit'];
 			$value = $nutrient->v / 100 * $weight;
-			$combinedNutrients[$key]['value'] = $value;
+			$combinedNutrients[$key]['value'] = ($value >= 1000) ? round($value) : round($value * 10) / 10;
 			$rdi = ($allNutrients[$key]['rdi']) ? 100 * $allNutrients[$key]['rdi'] / 100 : 0;
 			$combinedNutrients[$key]['rdi'] = $rdi;
-			$combinedNutrients[$key]['percentage'] = ($rdi) ? round( 10000 * $value / $rdi )/100 : 0;
+			$combinedNutrients[$key]['percentage'] = ($rdi) ? round( 1000 * $value / $rdi )/10 : 0;
+			if ($combinedNutrients[$key]['percentage'] >= 1000)
+				$combinedNutrients[$key]['percentage'] = round($combinedNutrients[$key]['percentage']);
 			$combinedNutrients[$key]['list_type'] = (in_array($key, $basicNutrients)) ? 'b' : 'f';
 		}
 
@@ -454,16 +456,21 @@ class Model {
 					$rdi = ($allNutrients[$key]['rdi']) ? 100 * $allNutrients[$key]['rdi'] / 100 : 0;
 					$combinedNutrients[$key]['rdi'] = $rdi;
 					$combinedNutrients[$key]['list_type'] = (in_array($key, $basicNutrients)) ? 'b' : 'f';
-					$combinedNutrients[$key]['value'] = $nutrient->v / 100 * $food['weight'];
+					$combinedNutrients[$key]['value'] = round($nutrient->v * 10) / 1000 * $food['weight'];
+				} else {
+					$combinedNutrients[$key]['value'] += round($nutrient->v * 10) / 1000 * $food['weight'];
 				}
-				$combinedNutrients[$key]['value'] += $nutrient->v / 100 * $food['weight'];
 			}
 		}
 		foreach ($combinedNutrients as $key => $value) {
-			$combinedNutrients[$key]['percentage'] = ($value['rdi']) ? round( 10000 * $value['value'] / $value['rdi'] )/100 : 0;
+			$combinedNutrients[$key]['percentage'] = ($value['rdi']) ? round( 1000 * $value['value'] / $value['rdi'] )/10 : 0;
+			if ($combinedNutrients[$key]['percentage'] >= 1000)
+				$combinedNutrients[$key]['percentage'] = round($combinedNutrients[$key]['percentage']);
+			if ($combinedNutrients[$key]['value'] >= 1000)
+				$combinedNutrients[$key]['value'] = round($combinedNutrients[$key]['value']);
 		}
 
-		$general['utilization'] = 100 - round(100 * $refuse_weight / $general['weight']);
+		$general['utilization'] = 100 - (round(1000 * $refuse_weight / $general['weight']) / 10);
 
 		$data['general'] = $general;
 		$data['nutrients'] = $combinedNutrients;
