@@ -97,6 +97,7 @@ class Model {
 			'0400' => 'Masti i ulja',
 			'1100' => 'Povrće',
 			'0100' => 'Proizvodi od mleka i jaja',
+			'1600' => 'Mahunarke',
 			'1900' => 'Slatkiši',
 		);
 	}
@@ -456,9 +457,9 @@ class Model {
 					$rdi = ($allNutrients[$key]['rdi']) ? 100 * $allNutrients[$key]['rdi'] / 100 : 0;
 					$combinedNutrients[$key]['rdi'] = $rdi;
 					$combinedNutrients[$key]['list_type'] = (in_array($key, $basicNutrients)) ? 'b' : 'f';
-					$combinedNutrients[$key]['value'] = round($nutrient->v * 10) / 1000 * $food['weight'];
+					$combinedNutrients[$key]['value'] = $nutrient->v / 100 * $food['weight'];
 				} else {
-					$combinedNutrients[$key]['value'] += round($nutrient->v * 10) / 1000 * $food['weight'];
+					$combinedNutrients[$key]['value'] += $nutrient->v / 100 * $food['weight'];
 				}
 			}
 		}
@@ -468,6 +469,8 @@ class Model {
 				$combinedNutrients[$key]['percentage'] = round($combinedNutrients[$key]['percentage']);
 			if ($combinedNutrients[$key]['value'] >= 1000)
 				$combinedNutrients[$key]['value'] = round($combinedNutrients[$key]['value']);
+			else
+				$combinedNutrients[$key]['value'] = round($combinedNutrients[$key]['value'] * 10) / 10;
 		}
 
 		$general['utilization'] = 100 - (round(1000 * $refuse_weight / $general['weight']) / 10);
