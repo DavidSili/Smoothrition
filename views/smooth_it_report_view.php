@@ -1,6 +1,12 @@
 <div class="module-wrapper smooth-it-report-module">
     <div id="food-general">
-        <h3>Izveštaj o smutiju od: <b><?=$general['name']?></b></h3>
+        <h3>Izveštaj o smutiju od:</h3>
+        <ul>
+            <?php
+            foreach($general['individual'] as $food) { ?>
+                <li><?=$food['name'].' ('.$food['weight'].'g)';?></li>
+            <?php } ?>
+        </ul>
         <div class="left-box">
             <div>Ukupna iskorišćenost: <b><?=$general['utilization']?> %</b></div>
             <div>Ukupna težina: <b><?=$general['weight']?> g</b></div>

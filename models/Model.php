@@ -429,6 +429,7 @@ class Model {
 			'total_price' => 0,
 			'weight' => 0,
 			'utilization' => 0,
+			'individual' => array(),
 		);
 		$combinedNutrients = array();
 		$refuse_weight = 0;
@@ -444,11 +445,14 @@ class Model {
 			$result = $stmt->fetch(PDO::FETCH_ASSOC);
 			$nutritionData = $result['data'];
 			$name = ($result['name_sr']) ? $result['name_sr'] : $result['name_en'];
-			$general['name'] = (isset($general['name'])) ? $general['name'].', '.$name : $name;
+			$general['individual'][$food['food_id']] = array (
+				'name' => $name,
+				'weight' => $food['weight'],
+			);
 			$theseNutrients = json_decode($nutritionData);
+			$combinedNutrients = array();
 
 			foreach ($theseNutrients as $key => $nutrient) {
-				// do'vde sam stigao
 				if (!isset($combinedNutrients[$key])) {
 					$combinedNutrients[$key] = array();
 					$combinedNutrients[$key]['group'] = $nutrient->g;
@@ -463,6 +467,7 @@ class Model {
 				}
 			}
 		}
+
 		foreach ($combinedNutrients as $key => $value) {
 			$combinedNutrients[$key]['percentage'] = ($value['rdi']) ? round( 1000 * $value['value'] / $value['rdi'] )/10 : 0;
 			if ($combinedNutrients[$key]['percentage'] >= 1000)
